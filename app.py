@@ -68,7 +68,7 @@ if st.button("Run PQC Verification"):
     # Encrypt info
     encrypted_info = encrypt_data(patient_info, shared_secret_enc)
 
-    # ---------- DISPLAY ----------
+   
     st.subheader(f" Verification Result for UserID {user_id_input}")
     st.write(f"*Encrypted Info:* {encrypted_info}")
     st.write(f"*Shared Secret Match:* {'Yes' if shared_secret_match else 'No'}")
