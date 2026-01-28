@@ -6,12 +6,12 @@ from cryptography.fernet import Fernet
 st.title(" PQC Layer Simulation (Kyber + Dilithium)")
 st.subheader("Simulated Post-Quantum Cryptography Encryption & Signature Verification")
 
-# ---------- LOAD DATASET ----------
+
 data = pd.read_csv("quantum_security_users.csv")
 if 'role' not in data.columns:
     data['role'] = data['UserType'] if 'UserType' in data.columns else 'Patient'
 
-# ---------- HELPER FUNCTIONS ----------
+
 def generate_shared_secret(user_id, device, location):
     return hashlib.sha256(f"{user_id}{device}{location}".encode()).hexdigest()[:32]
 
@@ -25,13 +25,13 @@ def encrypt_data(data_str, shared_secret):
     encrypted = fernet_key.encrypt(data_str.encode())
     return encrypted.decode()
 
-# ---------- USER INPUT ----------
+
 st.markdown("###  Enter User Details for Verification")
 user_id_input = st.text_input("User ID (numeric)")
 device_input = st.selectbox("Device Type", ["Mobile", "Laptop", "Tablet", "Desktop"])
 location_input = st.selectbox("Login Location", ["northwest", "northeast", "southwest", "southeast"])
 
-# ---------- SIMULATION ----------
+
 if st.button("Run PQC Verification"):
 
     try:
@@ -71,8 +71,8 @@ if st.button("Run PQC Verification"):
     # ---------- DISPLAY ----------
     st.subheader(f" Verification Result for UserID {user_id_input}")
     st.write(f"*Encrypted Info:* {encrypted_info}")
-    st.write(f"*Shared Secret Match:* {'✅' if shared_secret_match else '❌'}")
-    st.write(f"*Signature Verified:* {'✅' if signature_verified else '❌'}")
+    st.write(f"*Shared Secret Match:* {'Yes' if shared_secret_match else 'No'}")
+    st.write(f"*Signature Verified:* {'Yes' if signature_verified else 'No'}")
 
     if not shared_secret_match:
         st.write(f" Mismatched Fields: {', '.join(mismatched_fields)}")
